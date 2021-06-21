@@ -12,6 +12,7 @@ using Core.Specifications;
 using API.Dtos;
 using AutoMapper;
 using API.Errors;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -34,13 +35,19 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts() /*Chon ListAsync az noe IReadOnlyList hastesh behtare injam hamintori bashe*/
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams) /*Chon ListAsync az noe IReadOnlyList hastesh behtare injam hamintori bashe. dar mored [FromQuery] safe 3 mored 4*/
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(productParams); /*harchi config hast to in class az jomle includ ha va sort, hamash emal mishe*/
+
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams); /*tedad kol product hamoon ro bad emal filter mohasebe mikone*/
+
+            var totalItems = await _productsRepo.CountAsync(countSpec);
 
             var products = await _productsRepo.ListAsync(spec);
 
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products));
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
 
             /*return products.Select(product => new ProductToReturnDto
             {
