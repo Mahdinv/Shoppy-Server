@@ -33,13 +33,7 @@ namespace API
 
             services.AddSwaggerDocumentation(); /*inam az SwaggerServiceExtensions miad*/
 
-            services.AddCors(opt => /*tozihat safe 3 mored 5*/
-            {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-                });
-            });
+            services.AddCors(); /*tozihat safe 3 mored 5*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +56,7 @@ namespace API
 
             app.UseStaticFiles();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
             app.UseAuthorization();
 
