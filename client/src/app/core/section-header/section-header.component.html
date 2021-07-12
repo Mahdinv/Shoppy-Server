@@ -1,0 +1,20 @@
+<ng-container *ngIf="(breadcrumb$ | async) as breadcrumbs"> <!--tozihat safe 6 mored 7-->
+
+  <section *ngIf="breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length-1].label !== 'Home'" class="py-5" style="margin-top: 105px; background-color: #f5f5f5;"><!--tozihat safe 6 mored 8-->
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-9">
+
+          <h1>{{breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length-1].label | titlecase}}</h1> <!--tozihat safe 6 mored 7-->
+
+        </div>
+        <div class="col-3">
+
+          <xng-breadcrumb></xng-breadcrumb> <!--tozihat safe 6 mored 5-->
+
+        </div>
+      </div>
+    </div>
+  </section><!--tozihat safe 6 mored 4-->
+
+</ng-container>
