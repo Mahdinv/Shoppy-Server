@@ -14,6 +14,10 @@ const routes: Routes = [
   // {path: 'shop/:id', component: ProductDetailsComponent},
   {path: 'shop', loadChildren: () => import('./shop/shop.module').then(mod => mod.ShopModule), /*tozihat safe 5 mored 6 */
   data: {breadcrumb: 'Shop'}},
+  {path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule), /*tozihat safe 5 mored 6 */
+  data: {breadcrumb: 'Basket'}},
+  {path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(mod => mod.CheckoutModule), /*tozihat safe 5 mored 6 */
+  data: {breadcrumb: 'Checkout'}},
   {path: '**', redirectTo: 'not-found', pathMatch: 'full'} /*bere be home component */
 ];
 
