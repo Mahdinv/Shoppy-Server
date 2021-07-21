@@ -3,6 +3,7 @@ using API.Helpers;
 using API.Middleware;
 using AutoMapper;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,11 @@ namespace API
 
             services.AddDbContext<StoreContext>(x => x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<AppIdentityDbContext>(x =>
+            {
+                x.UseSqlServer(_config.GetConnectionString("IdentityConnection"));
+            }); /*tozihat safe 10 mored 1*/
+
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
@@ -37,6 +43,8 @@ namespace API
             }); /*tozihat safe 7 mored 6*/
 
             services.AddApplicationServices(); /*faghat bara khalvat kardane inja bood ye meghdarisho bordam to file zekr shode*/
+
+            services.AddIdentityServices(_config); /*baraye Identity va seed data AppUser*/
 
             services.AddSwaggerDocumentation(); /*inam az SwaggerServiceExtensions miad*/
 
@@ -65,6 +73,7 @@ namespace API
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwaggerDocumentation(); /*inam az SwaggerServiceExtensions miad*/
