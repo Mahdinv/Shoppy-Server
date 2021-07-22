@@ -20,6 +20,9 @@ namespace API.Helpers
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<ProductUrlResolver>()); /*tozihat safe 2 mored 5*/
 
             CreateMap<Address, AddressDto>().ReverseMap(); /*tozihat safe 12 mored 4*/
+
+            CreateMap<CustomerBasketDto, CustomerBasket>();
+            CreateMap<BasketItemDto, BasketItem>();
         }
     }
 }
