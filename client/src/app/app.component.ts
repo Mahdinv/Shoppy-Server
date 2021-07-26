@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from './account/account.service';
 import { BasketService } from './basket/basket.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'Skinet';
   // products: IProduct[];
 
-  constructor(private basketService: BasketService) {}
+  constructor(private basketService: BasketService, private accountService: AccountService) {}
 
   ngOnInit(): void {
     // this.http.get('https://localhost:44328/api/products?pageSize=50').subscribe((response: IPagination) => {
@@ -19,7 +20,11 @@ export class AppComponent implements OnInit {
     // }, error => {
     //   console.log(error);
     // });
+    this.loadBasket();
+    this.loadCurrentUser(); /*tozihat safe 14 mored 5 */
+  }
 
+  loadBasket() {
     const basketId = localStorage.getItem('basket_id');
     if (basketId) {
       this.basketService.getBasket(basketId).subscribe(() => {
@@ -28,5 +33,16 @@ export class AppComponent implements OnInit {
         console.log(error);
       }); /*tozihat safe 9 mored 5 */
     }
+  }
+
+  loadCurrentUser() {
+    const token = localStorage.getItem('token');
+    /*if (token) { */ /*tozihat safe 15 mored 4 */
+    this.accountService.loadCurrentUser(token).subscribe(() => {
+      console.log('loaded user');
+    }, error => {
+      console.log(error);
+    });
+    /*}*/
   }
 }
