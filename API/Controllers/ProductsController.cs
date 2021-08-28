@@ -34,6 +34,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        [Cached(600)] /*tozihat safe 19 mored 10*/
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams) /*Chon ListAsync az noe IReadOnlyList hastesh behtare injam hamintori bashe. dar mored [FromQuery] safe 3 mored 4*/
         {
@@ -61,6 +62,7 @@ namespace API.Controllers
             }).ToList();*/
         }
 
+        [Cached(600)]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)] /*tozihat in attribute va attribute bala safe 3 mored 2*/
@@ -86,12 +88,14 @@ namespace API.Controllers
             };*/
         }
 
+        [Cached(600)]
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
         {
             return Ok(await _productBrandRepo.ListAllAsync()); /*tozih safe 2 mored 2*/
         }
-        
+
+        [Cached(600)]
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
         {

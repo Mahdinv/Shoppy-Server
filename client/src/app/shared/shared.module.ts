@@ -6,7 +6,7 @@ import { PagerComponent } from './components/pager/pager.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { OrderTotalsComponent } from './components/order-totals/order-totals.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { StepperComponent } from './components/stepper/stepper.component';
@@ -30,6 +30,7 @@ import { RouterModule } from '@angular/router';
     CarouselModule.forRoot(), /*tozihat safe 7 mored 5 */
     BsDropdownModule.forRoot(),
     ReactiveFormsModule,
+    FormsModule,
     CdkStepperModule, /*tozihat safe 18 mored 2 */
     RouterModule
   ],
@@ -40,6 +41,7 @@ import { RouterModule } from '@angular/router';
     CarouselModule,
     OrderTotalsComponent,
     ReactiveFormsModule, /*tozihat safe 14 mored 4 */
+    FormsModule,
     BsDropdownModule,
     TextInputComponent,
     CdkStepperModule,
